@@ -6,7 +6,7 @@
 
 Localization, one of the core features of Laravel, separates language strings from views, so as to serve a robust foundation for multilingual projects. However, `trans()`, `trans_choice()` or the newly-introduced  `__()`, supported by Blade template engine of different version of Laravel, are not usable in Javascript. This issue is definitely inevitable for developing any serious multilingual projects and just what Lang4JS is addressing. When Lang4JS is installed as a package in your Laravel application, you are able to use `trans()`, `trans_choice()` and `__()` in Javascript with the same syntax just as in Blade templates, the language strings defined in files under `resources/lang` folder are retrieved correspondently and displayed right to the users. Lang4JS is very easy to use and lightweight, merely a 3Kb controller file and a 4Kb minified JS file.
 
-## Compatability
+## Compatibility
 
 Lang4JS is compatible with Laravel 4.2+.
 
@@ -33,7 +33,7 @@ $ php artisan vendor:publish --tag=public --force
 4) Finally, add a route in `routes/web.php`:
 
 ```php
-Route::post('/lang4js', ['as' => 'post', 'uses' => '\DrewNeon\Lang4JS\Lang4JSController@lang4js']);
+Route::post('/lang4js', '\DrewNeon\Lang4JS\Lang4JSController@lang4js');
 ```
 
 ## Usage
@@ -73,12 +73,13 @@ Now in your Javascript, feel free to use `trans()`, `trans_choice()` as well as 
 
 __The only difference in syntax__
 
-When using the place-holder feature of `trans()` or `__()`, the syntax `['name' => 'dayle']` does __NOT__ work, please write `{'name' : 'dayle'}` instead.
+When using the place-holder feature of `trans()` or `__()`, the syntax `['name' => 'dayle']` does __NOT__ work for Javascript, please write `{'name' : 'dayle'}` instead.
 
-__Two More Issues__
+__Some Issues__
 
 1. `trans()`, `trans_choice()` or `__()` in your Javascript does __NOT__ work before the DOM is ready, and will halt your entire Javascript. Please use them in functions.
 2. It's also a fatal error when there's no `trans()` nor `trans_choice()` nor `__()` at all in your Javascript. To fix this, just remove `<script src="/vendor/lang4js/lang4js.min.js"></script>` from you view.
+3. When the locale string requires newlines, please always use `<br>` for HTML and `\n` for Javascript. If you want to show `\n` as is in Javascript, please wrap it in double quotes, i.e. `"\n"`.
 
 ## Change log
 
